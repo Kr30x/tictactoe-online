@@ -8,11 +8,11 @@ import { AlertCircle, Home, Copy, RefreshCw } from "lucide-react"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { toast } from "@/components/ui/use-toast"
 
-const GamePage = ({ params }) => {
-  const [game, setGame] = useState(null);
+const GamePage = ({ params }: { params: any }) => {
+  const [game, setGame] = useState<any | null>(null);
   const [error, setError] = useState('');
-  const [playerId, setPlayerId] = useState(null);
-  const [playerSymbol, setPlayerSymbol] = useState(null);
+  const [playerId, setPlayerId] = useState<string | null>(null);
+const [playerSymbol, setPlayerSymbol] = useState<string | null>(null);
   const [hoveredCell, setHoveredCell] = useState(null);
   const [clickLog, setClickLog] = useState([]);
   const router = useRouter();
@@ -86,9 +86,9 @@ const GamePage = ({ params }) => {
     }
   }, [playerId, fetchGameState]);
 
-  const handleCellClick = async (index) => {
+  const handleCellClick = async (index: string | number) => {
     // Log the click regardless of whether it's a valid move
-    setClickLog(prevLog => [...prevLog, { cell: index, time: new Date().toISOString() }]);
+    
 
     if (!game || game.winner || game.board[index] !== null || !playerId || game.currentPlayer !== playerSymbol) {
       return;
@@ -110,22 +110,24 @@ const GamePage = ({ params }) => {
 
       fetchGameState();
     } catch (error) {
-      setError(error.message || 'Failed to make move. Please try again.');
+      setError((error as Error).message || 'Failed to make move. Please try again.');
     }
   };
 
-  const renderCell = (value, index) => {
+  const renderCell = (value: string | null, index: React.SetStateAction<null> | React.Key | undefined) => {
     const size = Math.sqrt(game.board.length);
-    const col = index % size;
-    const row = Math.floor(index / size);
+    const col = Number(index) % size;
+    const row = Math.floor(Number(index) / size);
     const x = col * 100 + 50;
     const y = row * 100 + 50;
 
     return (
       <g 
+        // @ts-expect-error
         key={index} 
-        onClick={() => handleCellClick(index)} 
-        onMouseEnter={() => setHoveredCell(index)}
+        onClick={() => handleCellClick(Number(index))} 
+        // @ts-expect-error
+        onMouseEnter={() => setHoveredCell(index)} 
         onMouseLeave={() => setHoveredCell(null)}
         style={{ cursor: 'pointer' }}
       >
@@ -269,7 +271,7 @@ const GamePage = ({ params }) => {
               </React.Fragment>
             ))}
             
-            {game.board.map((value, index) => renderCell(value, index))}
+            {game.board.map((value: any, index: any) => renderCell(value, index))}
           </svg>
 
           {game.winner && (
