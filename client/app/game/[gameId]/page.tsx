@@ -22,7 +22,7 @@ const GamePage = ({ params }) => {
   const fetchGameState = useCallback(async () => {
     if (!playerId) return;
     try {
-      const response = await fetch(`http://localhost:3001/api/game/${gameId}`);
+      const response = await fetch(`https://kr30x-tictactoe-server/api/game/${gameId}`);
       if (!response.ok) {
         throw new Error('Failed to fetch game state');
       }
@@ -57,7 +57,7 @@ const GamePage = ({ params }) => {
 
     try {
       joinRequestMade.current = true;
-      const response = await fetch(`http://localhost:3001/api/join-game/${gameId}`, {
+      const response = await fetch(`https://kr30x-tictactoe-server/api/join-game/${gameId}`, {
         method: 'POST',
       });
       if (!response.ok) {
@@ -74,7 +74,6 @@ const GamePage = ({ params }) => {
     }
   }, [gameId]);
 
-  // Use useLayoutEffect to run once on mount
   useLayoutEffect(() => {
     joinOrReconnectToGame();
   }, []);
@@ -96,7 +95,7 @@ const GamePage = ({ params }) => {
     }
 
     try {
-      const response = await fetch(`http://localhost:3001/api/make-move/${gameId}`, {
+      const response = await fetch(`https://kr30x-tictactoe-server/api/make-move/${gameId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -155,7 +154,7 @@ const GamePage = ({ params }) => {
   };
 
   const copyGameCode = () => {
-    navigator.clipboard.writeText('http://localhost:3000/game/' + gameId);
+    navigator.clipboard.writeText('https://kr30x-tictactoe-server/game/' + gameId);
     toast({
       title: "Game code copied!",
       description: "The game code has been copied to your clipboard.",
@@ -164,7 +163,7 @@ const GamePage = ({ params }) => {
 
   const handlePlayAgain = async () => {
     try {
-        const response = await fetch('http://localhost:3001/api/create-game', {
+        const response = await fetch('https://kr30x-tictactoe-server/api/create-game', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -215,7 +214,7 @@ const GamePage = ({ params }) => {
             <span className='mr-4'>Join this game:</span>
             <Card className="bg-gray-800 border-gray-700">
               <CardContent className="flex items-center p-2">
-                <span className="mr-2 text-white">{'kr30x-tictactoe/game/...'}</span>
+                <span className="mr-2 text-white">{'kr30x-tictactoe.vercel.app/game/...'}</span>
                 <Button onClick={copyGameCode} variant="ghost" className="bg-gray-700 border-gray-600 text-white" size="sm">
                   <Copy className="h-4 w-4" />
                 </Button>
