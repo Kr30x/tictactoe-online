@@ -6,7 +6,7 @@ const AnimatedTicTacToe = () => {
   const [currentMoveIndex, setCurrentMoveIndex] = useState(0);
   const [winningLine, setWinningLine] = useState(null);
   const [gameOver, setGameOver] = useState(false);
-
+  // @ts-expect-error
   const checkWinner = useCallback((board) => {
     const lines = [
       [0, 1, 2],
@@ -28,6 +28,7 @@ const AnimatedTicTacToe = () => {
   }, []);
 
   const generateMoveSequence = useCallback(() => {
+    // @ts-expect-error
     const sequence = Array(9).fill().map((_, index) => index);
     for (let i = sequence.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -38,6 +39,7 @@ const AnimatedTicTacToe = () => {
 
   const resetGame = useCallback(() => {
     setBoard(Array(9).fill(null));
+    // @ts-expect-error
     setMoveSequence(generateMoveSequence());
     setCurrentMoveIndex(0);
     setWinningLine(null);
@@ -63,6 +65,7 @@ const AnimatedTicTacToe = () => {
 
           const winner = checkWinner(newBoard);
           if (winner) {
+            // @ts-expect-error
             setWinningLine(winner);
             setGameOver(true);
           } else if (currentMoveIndex === moveSequence.length - 1) {
@@ -80,6 +83,7 @@ const AnimatedTicTacToe = () => {
 
   const renderWinningLine = () => {
     if (!winningLine) return null;
+    // @ts-expect-error
     const [start, _, end] = winningLine;
     const startCol = start % 3;
     const startRow = Math.floor(start / 3);
