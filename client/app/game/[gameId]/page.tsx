@@ -156,7 +156,7 @@ const [playerSymbol, setPlayerSymbol] = useState<string | null>(null);
   };
 
   const copyGameCode = () => {
-    navigator.clipboard.writeText('https://tictactoe-online-server.vercel.app/game/' + gameId);
+    navigator.clipboard.writeText(`https://tictactoe-online-server.vercel.app/api/game/${gameId}`);
     toast({
       title: "Game code copied!",
       description: "The game code has been copied to your clipboard.",
