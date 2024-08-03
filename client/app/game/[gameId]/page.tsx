@@ -22,7 +22,7 @@ const GamePage = ({ params }) => {
   const fetchGameState = useCallback(async () => {
     if (!playerId) return;
     try {
-      const response = await fetch(`https://kr30x-tictactoe-server/api/game/${gameId}`);
+      const response = await fetch(`https://tictactoe-online-server.vercel.app/api/game/${gameId}`);
       if (!response.ok) {
         throw new Error('Failed to fetch game state');
       }
@@ -57,7 +57,7 @@ const GamePage = ({ params }) => {
 
     try {
       joinRequestMade.current = true;
-      const response = await fetch(`https://kr30x-tictactoe-server/api/join-game/${gameId}`, {
+      const response = await fetch(`https://tictactoe-online-server.vercel.app/api/join-game/${gameId}`, {
         method: 'POST',
       });
       if (!response.ok) {
@@ -95,7 +95,7 @@ const GamePage = ({ params }) => {
     }
 
     try {
-      const response = await fetch(`https://kr30x-tictactoe-server/api/make-move/${gameId}`, {
+      const response = await fetch(`https://tictactoe-online-server.vercel.app/api/make-move/${gameId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -154,7 +154,7 @@ const GamePage = ({ params }) => {
   };
 
   const copyGameCode = () => {
-    navigator.clipboard.writeText('https://kr30x-tictactoe-server/game/' + gameId);
+    navigator.clipboard.writeText('https://tictactoe-online-server.vercel.app/game/' + gameId);
     toast({
       title: "Game code copied!",
       description: "The game code has been copied to your clipboard.",
@@ -163,7 +163,7 @@ const GamePage = ({ params }) => {
 
   const handlePlayAgain = async () => {
     try {
-        const response = await fetch('https://kr30x-tictactoe-server/api/create-game', {
+        const response = await fetch('https://tictactoe-online-server.vercel.app/api/create-game', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

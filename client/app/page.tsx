@@ -19,7 +19,7 @@ const MainPage = () => {
 
   const handleCreateGame = async () => {
     try {
-      const response = await fetch('https://kr30x-tictactoe-server/api/create-game', {
+      const response = await fetch('https://tictactoe-online-server.vercel.app/api/create-game', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
